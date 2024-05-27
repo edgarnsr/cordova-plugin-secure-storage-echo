@@ -99,6 +99,11 @@ public class SecureStorage extends CordovaPlugin {
             INIT_SERVICE = service;
 
             SharedPreferencesHandler PREFS = new SharedPreferencesHandler(alias, ctx);
+            if (PREFS.getPrefs() == null) {
+                Log.e(TAG, MSG_DEVICE_NOT_SECURE);
+                callbackContext.error(MSG_DEVICE_NOT_SECURE);
+                return true;
+            }
             SERVICE_STORAGE.put(service, PREFS);
             if (!isDeviceSecure()) {
                 Log.e(TAG, MSG_DEVICE_NOT_SECURE);
